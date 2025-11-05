@@ -49,11 +49,11 @@ export default function ProjectForm({ register, errors }: ProjectFormProps) {
       </div>
 
       <div className="mb-5 space-y-3">
-        <label htmlFor="description" className="text-sm uppercase font-bold">
+        <label htmlFor="descripcion" className="text-sm uppercase font-bold">
           Descripción
         </label>
         <textarea
-          id="description"
+          id="descripcion"
           className="w-full p-3  border border-gray-200"
           placeholder="Descripción del Proyecto"
           {...register("descripcion", {
