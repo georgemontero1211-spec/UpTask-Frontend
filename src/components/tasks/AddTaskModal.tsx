@@ -67,7 +67,7 @@ export default function AddTaskModal() {
                     <span className="text-fuchsia-600">una tarea</span>
                     <form
                       className=" mt-10 space-y-3"
-                      noValidate
+                      noValidate 
                       onSubmit={handleSubmit(handleCreateTask)}
                     >
                       <TaskForm register={register} errors={errors} />
