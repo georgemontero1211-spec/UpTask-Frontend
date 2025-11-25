@@ -1,6 +1,6 @@
-import EditProjectForm from "@/components/projects/EditProjectForm";
 import AddTaskModal from "@/components/tasks/AddTaskModal";
-import { getProjectById } from "@/services/ProjectAPI";
+import TaskList from "@/components/tasks/TaskList";
+import { getProjectById } from "@/services/ProjectServices";
 import { useQuery } from "@tanstack/react-query";
 import { Navigate, useNavigate, useParams } from "react-router-dom";
 
@@ -32,6 +32,7 @@ export default function ProjectDetailsView() {
             Agregar Tarea
           </button>
         </nav>
+        <TaskList tasks={data.tasks} />
         <AddTaskModal />
       </>
     );

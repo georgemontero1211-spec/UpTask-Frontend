@@ -1,7 +1,7 @@
 import { z } from "zod";
 
 /**Tasks */
-export const taskStatusSchema = z.enum(["pending" , "on_hold" , "in_progress" , "under_review" , "completed"])
+export const taskStatusSchema = z.enum(["pending" , "onHold" , "inProgress" , "underReview" , "completed"])
 
 export const taskSchema = z.object({
   _id: z.string(),

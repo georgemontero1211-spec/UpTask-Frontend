@@ -6,7 +6,12 @@ import {
 } from "@/types";
 import { isAxiosError } from "axios";
 
-export async function createProject(formData: ProjectFromData) {
+type ProjectAPI = {
+  formData: ProjectFromData;
+  projectId: Project["_id"];
+};
+
+export async function createProject(formData: Pick<ProjectAPI, "formData">) {
   try {
     const { data } = await api.post("/projects", formData);
     return data;
@@ -31,7 +36,7 @@ export async function getProject() {
   }
 }
 
-export async function getProjectById(projectId: Project["_id"]) {
+export async function getProjectById(projectId: Pick<ProjectAPI, "projectId">) {
   try {
     const { data } = await api(`/projects/${projectId}`);
     return data;
@@ -46,15 +51,10 @@ export async function getProjectById(projectId: Project["_id"]) {
   }
 }
 
-type ProjectUpdateData = {
-  formData: ProjectFromData;
-  projectId: Project["_id"];
-};
-
 export async function updateProject({
   formData,
   projectId,
-}: ProjectUpdateData) {
+}: Pick<ProjectAPI, "formData" | "projectId">) {
   try {
     const { data } = await api.put<string>(`/projects/${projectId}`, formData);
     return data;

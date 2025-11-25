@@ -35,15 +35,15 @@ export default function TaskForm({errors, register} : TaskFormProps) {
                     htmlFor="description"
                 >Descripción de la tarea</label>
                 <textarea
-                    id="description"
+                    id="descripcion"
                     placeholder="Descripción de la tarea"
                     className="w-full p-3  border-gray-300 border"
-                    {...register("description", {
+                    {...register("descripcion", {
                         required: "La descripción de la tarea es obligatoria"
                     })}
                 />
-                {errors.description && (
-                    <ErrorMessage>{errors.description.message}</ErrorMessage>
+                {errors.descripcion && (
+                    <ErrorMessage>{errors.descripcion.message}</ErrorMessage>
                 )}
             </div>
         </>

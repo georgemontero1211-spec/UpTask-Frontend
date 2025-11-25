@@ -1,7 +1,7 @@
 import ProjectForm from "@/components/projects/ProjectFrom";
 import { useMutation } from "@tanstack/react-query";
 import { toast } from "react-toastify";
-import { createProject } from "@/services/ProjectAPI";
+import { createProject } from "@/services/ProjectServices";
 import type { ProjectFromData } from "@/types";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";

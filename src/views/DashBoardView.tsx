@@ -3,7 +3,7 @@ import { Menu, Transition } from "@headlessui/react";
 import { EllipsisVerticalIcon } from "@heroicons/react/20/solid";
 import { Link } from "react-router-dom";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { deleteProject, getProject } from "@/services/ProjectAPI";
+import { deleteProject, getProject } from "@/services/ProjectServices";
 import { toast } from "react-toastify";
 
 export default function DashBoardView() {
