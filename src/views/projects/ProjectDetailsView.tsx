@@ -1,4 +1,5 @@
 import AddTaskModal from "@/components/tasks/AddTaskModal";
+import EditTaskData from "@/components/tasks/EditTaskData";
 import TaskList from "@/components/tasks/TaskList";
 import { getProjectById } from "@/services/ProjectServices";
 import { useQuery } from "@tanstack/react-query";
@@ -34,6 +35,7 @@ export default function ProjectDetailsView() {
         </nav>
         <TaskList tasks={data.tasks} />
         <AddTaskModal />
+        <EditTaskData/>
       </>
     );
 }
