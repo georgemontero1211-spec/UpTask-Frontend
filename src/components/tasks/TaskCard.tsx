@@ -1,35 +1,32 @@
-import { deleteTask } from '@/services/TaskServices';
-import { taskSchema, type Task } from "@/types";
-import { Menu, Transition } from '@headlessui/react';
-import { EllipsisVerticalIcon } from '@heroicons/react/20/solid';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { Fragment } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
-import { toast } from 'react-toastify';
+import { deleteTask } from "@/services/TaskServices";
+import { type Task } from "@/types";
+import { Menu, Transition } from "@headlessui/react";
+import { EllipsisVerticalIcon } from "@heroicons/react/20/solid";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { Fragment } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import { toast } from "react-toastify";
 
 type TaskCardProps = {
   task: Task;
 };
 
 export default function TaskCard({ task }: TaskCardProps) {
+  const navigate = useNavigate();
+  const params = useParams();
+  const projectId = params.projectId!;
 
-  const navigate = useNavigate()
-  const params = useParams()
-  const projectId = params.projectId!
-
-    const queryCLient = useQueryClient();
-  const {mutate} = useMutation({
+  const queryCLient = useQueryClient();
+  const { mutate } = useMutation({
     mutationFn: deleteTask,
     onError: (error) => {
-      toast.error(error.message)
+      toast.error(error.message);
     },
     onSuccess: (data) => {
       queryCLient.invalidateQueries({ queryKey: ["editProject", projectId] });
-      toast.success(data?.data)
-    }
-
-  })
-  
+      toast.success(data);
+    },
+  });
 
   return (
     <li className=" p-5 bg-white border border-slate-300 flex justify-between gap-3">
@@ -62,6 +59,9 @@ export default function TaskCard({ task }: TaskCardProps) {
                 <button
                   type="button"
                   className="block px-3 py-1 text-sm leading-6 text-gray-900"
+                  onClick={() =>
+                    navigate(location.pathname + `?viewTask=${task._id}`)
+                  }
                 >
                   Ver Tarea
                 </button>
@@ -70,8 +70,9 @@ export default function TaskCard({ task }: TaskCardProps) {
                 <button
                   type="button"
                   className="block px-3 py-1 text-sm leading-6 text-gray-900"
-                  onClick={() => navigate(location.pathname + `?editTask=${task._id}`)}
-                  
+                  onClick={() =>
+                    navigate(location.pathname + `?editTask=${task._id}`)
+                  }
                 >
                   Editar Tarea
                 </button>
@@ -81,7 +82,7 @@ export default function TaskCard({ task }: TaskCardProps) {
                 <button
                   type="button"
                   className="block px-3 py-1 text-sm leading-6 text-red-500"
-                  onClick={() => mutate({projectId, taskId: task._id})}
+                  onClick={() => mutate({ projectId, taskId: task._id })}
                 >
                   Eliminar Tarea
                 </button>
