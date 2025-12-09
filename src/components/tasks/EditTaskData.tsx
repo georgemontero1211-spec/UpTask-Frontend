@@ -3,6 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 import { getTaskById } from "@/services/TaskServices";
 import EditTaskModal from "./EditTaskModal";
 import type { Task } from "@/types";
+import type { Id } from "react-toastify";
 
 export default function EditTaskData() {
   const params = useParams();
@@ -17,7 +18,7 @@ export default function EditTaskData() {
     queryFn: () => getTaskById({ projectId, taskId }),
     enabled: !!taskId,
   });
-  const taskData: Task = data?.data;
+  const taskData = data;
 
   if (isError) return <Navigate to={"/404"} />;
   if (data) return <EditTaskModal data={taskData} taskId={taskId} />;

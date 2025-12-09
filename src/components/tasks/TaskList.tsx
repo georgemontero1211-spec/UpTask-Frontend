@@ -1,5 +1,6 @@
 import type { Task } from "@/types";
 import TaskCard from "./TaskCard";
+import { statusTranslations } from "@/locales/es";
 
 type TaskListProps = {
   tasks: Task[];
@@ -17,13 +18,7 @@ const initialStatusGroups: GroupedTask = {
   completed: [],
 };
 
-const statusTranslations: { [key: string]: string } = {
-  pending: "Pendiente",
-  onHold: "En Espera",
-  inProgress: "En Progreso",
-  underReview: "En revision",
-  completed: "Completado",
-};
+
 
 const statusStyles: { [key: string]: string } = {
   pending: "border-t-slate-500",
@@ -40,7 +35,7 @@ export default function TaskList({ tasks }: TaskListProps) {
     return { ...acc, [task.status]: currentGroup };
   }, initialStatusGroups);
 
-  console.log(groupedTasks);
+  
 
   return (
     <>
