@@ -1,13 +1,16 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import AppLayout from "./layouts/AppLayout";
 import DashBoardView from "@/views/DashBoardView";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import AppLayout from "./layouts/AppLayout";
+import AuthLayout from "./layouts/AuthLayout";
+import ConfirmAccountView from "./views/auth/ConfirmAccountView";
+import LoginView from "./views/auth/LoginView";
+import RegisterView from "./views/auth/RegisterView";
+import RequestNewCodeView from "./views/auth/RequestNewCodeView";
 import CreateProjectView from "./views/projects/CreateProjectView";
 import EditProjectView from "./views/projects/EditProjectView";
 import ProjectDetailsView from "./views/projects/ProjectDetailsView";
-import AuthLayout from "./layouts/AuthLayout";
-import LoginView from "./views/auth/LoginView";
-import RegisterView from "./views/auth/RegisterView";
-import ConfirmAccountView from "./views/auth/ConfirmAccountView";
+import ForgotPasswordView from "./views/auth/ForgotPasswordView";
+import NewPasswordView from "./views/auth/NewPasswordView";
 
 export default function Router() {
   return (
@@ -26,6 +29,9 @@ export default function Router() {
           <Route path="/auth/login" element={<LoginView />} />
           <Route path="/auth/register" element={<RegisterView />} />
           <Route path="/auth/confirm-account" element={<ConfirmAccountView  />} />
+          <Route path="/auth/request-code" element={<RequestNewCodeView  />} />
+          <Route path="/auth/forgot-password" element={<ForgotPasswordView  />} />
+          <Route path="/auth/new-password" element={<NewPasswordView  />} />
         </Route>
       </Routes>
     </BrowserRouter>
