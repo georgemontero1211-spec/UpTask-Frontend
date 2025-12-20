@@ -36,7 +36,7 @@ export async function getProject() {
   }
 }
 
-export async function getProjectById(projectId: Pick<ProjectAPI, "projectId">) {
+export async function getProjectById(projectId: ProjectAPI["projectId"]) {
   try {
     const { data } = await api(`/projects/${projectId}`);
     return data;

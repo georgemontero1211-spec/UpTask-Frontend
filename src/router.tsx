@@ -11,6 +11,7 @@ import EditProjectView from "./views/projects/EditProjectView";
 import ProjectDetailsView from "./views/projects/ProjectDetailsView";
 import ForgotPasswordView from "./views/auth/ForgotPasswordView";
 import NewPasswordView from "./views/auth/NewPasswordView";
+import ProjectTeamView from "./views/projects/ProjectTeamView";
 
 export default function Router() {
   return (
@@ -23,6 +24,10 @@ export default function Router() {
           <Route
             path="/projects/:projectId/edit"
             element={<EditProjectView />}
+          />
+          <Route
+            path="/projects/:projectId/team"
+            element={<ProjectTeamView />}
           />
         </Route>
         <Route element={<AuthLayout />}>
