@@ -34,6 +34,7 @@ export const userSchema = authSchema
   });
 
 export type User = z.infer<typeof userSchema>;
+
 /**Tasks */
 export const taskStatusSchema = z.enum([
   "pending",
@@ -50,6 +51,11 @@ export const taskSchema = z.object({
   descripcion: z.string(),
   project: z.string(),
   status: taskStatusSchema,
+  completedBy: z.array(z.object({
+    _id: z.string(),
+    user: userSchema,
+    status: taskStatusSchema,
+  })),
   createdAt: z.string(),
   updatedAt: z.string(),
 });

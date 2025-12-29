@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React, { act, Fragment } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import {
   Navigate,
@@ -6,7 +6,7 @@ import {
   useNavigate,
   useParams,
 } from "react-router-dom";
-import { useQuery , useMutation, useQueryClient} from "@tanstack/react-query";
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { getTaskById, updateStatus } from "@/services/TaskServices";
 import { toast } from "react-toastify";
 import { formatDate } from "@/utils/utils";
@@ -30,32 +30,30 @@ export default function TaskModalDetails() {
     retry: false,
   });
 
-  const queryClient = useQueryClient()
+  const queryClient = useQueryClient();
 
-  const {mutate} = useMutation({
+  const { mutate } = useMutation({
     mutationFn: updateStatus,
-    onError:(error) => {
-        toast.error(error.message)
+    onError: (error) => {
+      toast.error(error.message);
     },
     onSuccess: (data) => {
-        toast.success(data)
-        queryClient.invalidateQueries({queryKey:["editProject", projectId]})
-        queryClient.invalidateQueries({queryKey:["task", taskId]})
-    }
-  })
+      toast.success(data);
+      queryClient.invalidateQueries({ queryKey: ["editProject", projectId] });
+      queryClient.invalidateQueries({ queryKey: ["task", taskId] });
+    },
+  });
 
   const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    const status = e.target.value as TaskStatus
-    const data = {projectId, taskId, status}
-    mutate(data)
-  }
+    const status = e.target.value as TaskStatus;
+    const data = { projectId, taskId, status };
+    mutate(data);
+  };
 
   if (isError) {
     toast.error(error.message, { toastId: "error" });
     return <Navigate to={`/projects/${projectId}`} />;
   }
-
-
 
   if (data)
     return (
@@ -105,6 +103,20 @@ export default function TaskModalDetails() {
                     <p className="text-lg text-slate-500 mb-2">
                       Descripción: {data.descripcion}
                     </p>
+                    <p className="text-2lg text-slate-500 mb-2">
+                      Historial de cambios
+                    </p>
+                    <ul className=" list-decimal">
+                      {data.completedBy.map((activityLog) => (
+                        <li key={activityLog._id}>
+                          <span className="font-bold text-slate-600">
+                            {statusTranslations[activityLog.status]}
+                          </span>{" "}
+                          por:
+                          {activityLog.user.name}
+                        </li>
+                      ))}
+                    </ul>
                     <div className="my-5 space-y-3">
                       <label className="font-bold">
                         Estado Actual:{data.status}
