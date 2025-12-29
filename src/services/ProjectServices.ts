@@ -11,9 +11,11 @@ type ProjectAPI = {
   projectId: Project["_id"];
 };
 
-export async function createProject(formData: Pick<ProjectAPI, "formData">) {
+export async function createProject(formData: ProjectFromData)  {
   try {
+    
     const { data } = await api.post("/projects", formData);
+    
     return data;
   } catch (error) {
     if (isAxiosError(error) && error.response) {
@@ -25,14 +27,20 @@ export async function createProject(formData: Pick<ProjectAPI, "formData">) {
 export async function getProject() {
   try {
     const { data } = await api("/projects");
+
     const response = dashboardProjectSchema.safeParse(data);
-    if (response.success) {
-      return response.data;
+
+    if (!response.success) {
+      console.error(response.error);
+      throw new Error("Invalid projects data");
     }
+
+    return response.data;
   } catch (error) {
     if (isAxiosError(error) && error.response) {
       throw new Error(error.response.data.error);
     }
+    throw error;
   }
 }
 
