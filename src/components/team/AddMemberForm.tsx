@@ -1,7 +1,7 @@
 import { useForm } from "react-hook-form";
 import { useParams } from "react-router-dom";
 import { useMutation } from "@tanstack/react-query";
-import ErrorMenssage from "../ErrorMenssage";
+import ErrorMenssage from "../ErrorMessage";
 import type { TeamMemberForm } from "@/types";
 import { findUserByEmal } from "@/services/TeamServices";
 import SearchResult from "./SearchResult";
@@ -30,9 +30,8 @@ export default function AddMemberForm() {
   };
 
   const resetData = () => {
-    reset(),
-    mutation.reset()
-  }
+    reset(), mutation.reset();
+  };
 
   return (
     <>
@@ -74,7 +73,9 @@ export default function AddMemberForm() {
         {mutation.error && (
           <p className="text-center">{mutation.error.message}</p>
         )}
-        {mutation.data && <SearchResult user={mutation.data} reset={resetData}/>}
+        {mutation.data && (
+          <SearchResult user={mutation.data} reset={resetData} />
+        )}
       </div>
     </>
   );

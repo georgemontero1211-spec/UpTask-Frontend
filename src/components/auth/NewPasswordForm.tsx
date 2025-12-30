@@ -1,16 +1,16 @@
 import type { ConfirmToken, NewPasswordForm } from "../../types";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import ErrorMenssage from "@/components/ErrorMenssage";
+import ErrorMenssage from "@/components/ErrorMessage";
 import { useMutation } from "@tanstack/react-query";
 import { updatePasswordWithToken } from "@/services/AuthServices";
 import { toast } from "react-toastify";
 
 type NewPasswordFormProps = {
-    token: ConfirmToken["token"]
-}
+  token: ConfirmToken["token"];
+};
 
-export default function NewPasswordForm({token} : NewPasswordFormProps) {
+export default function NewPasswordForm({ token }: NewPasswordFormProps) {
   const navigate = useNavigate();
   const initialValues: NewPasswordForm = {
     password: "",
@@ -24,24 +24,24 @@ export default function NewPasswordForm({token} : NewPasswordFormProps) {
     formState: { errors },
   } = useForm({ defaultValues: initialValues });
 
-  const {mutate} = useMutation({
+  const { mutate } = useMutation({
     mutationFn: updatePasswordWithToken,
     onError: (error) => {
-        toast.error(error.message)
+      toast.error(error.message);
     },
     onSuccess: (data) => {
-        toast.success(data)
-        reset()
-        navigate('/auth/login')
-    }
-  })
+      toast.success(data);
+      reset();
+      navigate("/auth/login");
+    },
+  });
 
   const handleNewPassword = (formData: NewPasswordForm) => {
     const data = {
-        formData,
-        token
-    }
-    mutate(data)
+      formData,
+      token,
+    };
+    mutate(data);
   };
 
   const password = watch("password");

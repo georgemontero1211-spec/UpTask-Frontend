@@ -1,6 +1,6 @@
 import type { NoteFormData } from "@/types";
 import { useForm } from "react-hook-form";
-import ErrorMenssage from "../ErrorMenssage";
+import ErrorMenssage from "../ErrorMessage";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { createNote } from "@/services/NoteServices";
 import { toast } from "react-toastify";

@@ -1,14 +1,13 @@
 import { useForm } from "react-hook-form";
 import type { UserLoginForm } from "@/types/index";
 import { useMutation } from "@tanstack/react-query";
-import ErrorMenssage from "@/components/ErrorMenssage";
+import ErrorMenssage from "@/components/ErrorMessage";
 import { Link, useNavigate } from "react-router-dom";
 import { authenticateUser } from "@/services/AuthServices";
 import { toast } from "react-toastify";
 
 export default function LoginView() {
-  const navigate = useNavigate()
-
+  const navigate = useNavigate();
 
   const initialValues: UserLoginForm = {
     email: "",
@@ -26,7 +25,7 @@ export default function LoginView() {
       toast.error(error.message);
     },
     onSuccess: () => {
-      navigate('/')
+      navigate("/");
     },
   });
 

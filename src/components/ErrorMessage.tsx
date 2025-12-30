@@ -1,4 +1,4 @@
-export default function ErrorMenssage({
+export default function ErrorMessage({
   children,
 }: {
   children: React.ReactNode;
