@@ -1,73 +1,73 @@
-# React + TypeScript + Vite
+# UpTask – Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Interfaz web de **UpTask**, una aplicación para gestionar proyectos y tareas en equipo. Está construida con React, TypeScript, TanStack Query y Tailwind CSS, y consume la API de [UpTask-Server](https://github.com/georgemontero1211-spec/UpTask-Server).
 
-Currently, two official plugins are available:
+## Funcionalidades
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **Cuenta de usuario**: registro, confirmación con un código de 6 dígitos, inicio de sesión, solicitud de un código nuevo y recuperación de contraseña.
+- **Proyectos**: dashboard con los proyectos del usuario; crear, editar y eliminar proyectos (eliminar pide confirmar la contraseña).
+- **Tareas**: crear, ver, editar y eliminar tareas, agrupadas por estado (pendiente, en espera, en progreso, en revisión, completada).
+- **Equipo**: buscar usuarios por email y agregarlos al proyecto o quitarlos.
+- **Notas**: comentarios dentro de cada tarea.
+- **Permisos**: solo el manager del proyecto puede editarlo, gestionar el equipo y crear tareas; los colaboradores pueden cambiar el estado de las tareas y dejar notas.
+- **Perfil**: editar nombre y email, y cambiar la contraseña.
 
-## React Compiler
+## Rutas principales
 
-The React Compiler is currently not compatible with SWC. See [this issue](https://github.com/vitejs/vite-plugin-react/issues/428) for tracking the progress.
+| Ruta | Vista |
+| ---- | ----- |
+| `/` | Dashboard de proyectos |
+| `/projects/create` | Nuevo proyecto |
+| `/projects/:projectId` | Detalle del proyecto y sus tareas |
+| `/projects/:projectId/edit` | Editar proyecto |
+| `/projects/:projectId/team` | Equipo del proyecto |
+| `/profile`, `/profile/password` | Perfil y cambio de contraseña |
+| `/auth/login`, `/auth/register`, `/auth/confirm-account`, `/auth/request-code`, `/auth/forgot-password`, `/auth/new-password` | Autenticación |
 
-## Expanding the ESLint configuration
+## Tecnologías
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- React + TypeScript + Vite
+- TanStack Query
+- React Router
+- React Hook Form + Zod
+- Axios
+- Headless UI, Heroicons, Chakra Pin Input
+- React Toastify
+- Tailwind CSS
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+## Estructura
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```
+src/
+├── components/   # Componentes por dominio: auth, projects, tasks, team, notes, profile
+├── hooks/        # useAuth
+├── layouts/      # AppLayout, AuthLayout, ProfileLayout
+├── lib/          # Instancia de Axios con el token JWT
+├── services/     # Llamadas a la API por recurso
+├── types/        # Esquemas Zod y tipos
+├── utils/        # Políticas de permisos y helpers
+├── views/        # Páginas
+└── router.tsx
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## Configuración
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+Crea un archivo `.env` en la raíz con la URL de la API:
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```env
+VITE_API_URL=http://localhost:4000/api
 ```
+
+## Cómo ejecutarlo
+
+```bash
+npm install
+npm run dev
+```
+
+| Script            | Descripción                       |
+| ----------------- | --------------------------------- |
+| `npm run dev`     | Servidor de desarrollo            |
+| `npm run build`   | Compila TypeScript y genera build |
+| `npm run preview` | Sirve el build de producción      |
+| `npm run lint`    | Ejecuta ESLint                    |
